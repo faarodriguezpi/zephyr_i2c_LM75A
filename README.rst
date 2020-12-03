@@ -1,6 +1,6 @@
-.. _i2c_fujitsu_fram:
 
-I2C Fujitsu FRAM
+
+I2C LM75A
 ################
 
 Overview
