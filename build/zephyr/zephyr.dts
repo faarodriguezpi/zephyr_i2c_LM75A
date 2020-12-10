@@ -98,7 +98,7 @@
 			reg = < 0x3ff67000 0x1000 >;
 			label = "I2C_1";
 			clocks = < &rtc 0x12 >;
-			status = "disabled";
+			status = "okay";
 			clock-frequency = < 0x61a80 >;
 			sda-pin = < 0x12 >;
 			scl-pin = < 0x5 >;

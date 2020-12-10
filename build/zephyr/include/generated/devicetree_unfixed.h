@@ -589,7 +589,7 @@
 #define DT_N_S_soc_S_i2c_3ff67000_REG_IDX_0_VAL_SIZE 4096 /* 0x1000 */
 #define DT_N_S_soc_S_i2c_3ff67000_IRQ_NUM 0
 #define DT_N_S_soc_S_i2c_3ff67000_COMPAT_MATCHES_espressif_esp32_i2c 1
-#define DT_N_S_soc_S_i2c_3ff67000_STATUS_disabled 1
+#define DT_N_S_soc_S_i2c_3ff67000_STATUS_okay 1
 
 /* Generic property macros: */
 #define DT_N_S_soc_S_i2c_3ff67000_P_reg {1073115136 /* 0x3ff67000 */, 4096 /* 0x1000 */}
@@ -604,8 +604,8 @@
 #define DT_N_S_soc_S_i2c_3ff67000_P_clock_frequency_EXISTS 1
 #define DT_N_S_soc_S_i2c_3ff67000_P_label "I2C_1"
 #define DT_N_S_soc_S_i2c_3ff67000_P_label_EXISTS 1
-#define DT_N_S_soc_S_i2c_3ff67000_P_status "disabled"
-#define DT_N_S_soc_S_i2c_3ff67000_P_status_ENUM_IDX 2
+#define DT_N_S_soc_S_i2c_3ff67000_P_status "okay"
+#define DT_N_S_soc_S_i2c_3ff67000_P_status_ENUM_IDX 1
 #define DT_N_S_soc_S_i2c_3ff67000_P_status_EXISTS 1
 #define DT_N_S_soc_S_i2c_3ff67000_P_compatible {"espressif,esp32-i2c"}
 #define DT_N_S_soc_S_i2c_3ff67000_P_compatible_IDX_0 "espressif,esp32-i2c"
@@ -1057,7 +1057,7 @@
 #define DT_N_INST_espressif_esp32_uart_NUM_OKAY 1
 #define DT_N_INST_espressif_esp32_pinmux_NUM_OKAY 1
 #define DT_N_INST_espressif_esp32_gpio_NUM_OKAY 2
-#define DT_N_INST_espressif_esp32_i2c_NUM_OKAY 1
+#define DT_N_INST_espressif_esp32_i2c_NUM_OKAY 2
 #define DT_N_INST_espressif_esp32_trng_NUM_OKAY 1
 #define DT_N_INST_espressif_esp32_watchdog_NUM_OKAY 1
 #define DT_N_INST_cadence_tensilica_xtensa_lx6_NUM_OKAY 2
@@ -1068,7 +1068,7 @@
 #define DT_FOREACH_OKAY_INST_espressif_esp32_uart(fn) fn(0)
 #define DT_FOREACH_OKAY_INST_espressif_esp32_pinmux(fn) fn(0)
 #define DT_FOREACH_OKAY_INST_espressif_esp32_gpio(fn) fn(0) fn(1)
-#define DT_FOREACH_OKAY_INST_espressif_esp32_i2c(fn) fn(0)
+#define DT_FOREACH_OKAY_INST_espressif_esp32_i2c(fn) fn(0) fn(1)
 #define DT_FOREACH_OKAY_INST_espressif_esp32_trng(fn) fn(0)
 #define DT_FOREACH_OKAY_INST_espressif_esp32_watchdog(fn) fn(0)
 #define DT_FOREACH_OKAY_INST_cadence_tensilica_xtensa_lx6(fn) fn(0) fn(1)
