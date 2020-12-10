@@ -578,6 +578,7 @@
 
 /* Existence and alternate IDs: */
 #define DT_N_S_soc_S_i2c_3ff67000_EXISTS 1
+#define DT_N_ALIAS_i2c_1                DT_N_S_soc_S_i2c_3ff67000
 #define DT_N_INST_1_espressif_esp32_i2c DT_N_S_soc_S_i2c_3ff67000
 #define DT_N_NODELABEL_i2c1             DT_N_S_soc_S_i2c_3ff67000
 

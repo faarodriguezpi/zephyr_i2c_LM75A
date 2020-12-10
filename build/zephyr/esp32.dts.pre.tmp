@@ -183,3 +183,8 @@
 &trng0 {
  status = "okay";
 };
+/ {
+ aliases {
+  i2c-1 = &i2c1;
+ };
+};

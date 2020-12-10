@@ -11,104 +11,15 @@
 #include <drivers/i2c.h>
 
 #define I2C_DEV DT_LABEL(DT_ALIAS(i2c_0))
+#define I2C_DEV1 DT_LABEL(DT_ALIAS(i2c_1))
+//#define I2C_DEV1 DT_LABEL(DT_NODELABEL(i2c1))
 
 #define LM75A_DEFAULT_ADDRESS   0x48
+#define BMP280_DEFAULT_ADDRESS  0x76
 
 /**
- * @file Sample app using the Fujitsu MB85RC256V FRAM through ARC I2C.
+ * @file Sample app using the I2C
  */
-
-#define FRAM_I2C_ADDR	0x50
-
-static int write_bytes(const struct device *i2c_dev, uint16_t addr,
-		       uint8_t *data, uint32_t num_bytes)
-{
-	uint8_t wr_addr[2];
-	struct i2c_msg msgs[2];
-
-	/* FRAM address */
-	wr_addr[0] = (addr >> 8) & 0xFF;
-	wr_addr[1] = addr & 0xFF;
-
-	/* Setup I2C messages */
-
-	/* Send the address to write to */
-	msgs[0].buf = wr_addr;
-	msgs[0].len = 2U;
-	msgs[0].flags = I2C_MSG_WRITE;
-
-	/* Data to be written, and STOP after this. */
-	msgs[1].buf = data;
-	msgs[1].len = num_bytes;
-	msgs[1].flags = I2C_MSG_WRITE | I2C_MSG_STOP;
-
-	return i2c_transfer(i2c_dev, &msgs[0], 2, FRAM_I2C_ADDR);
-}
-
-static int read_bytes(const struct device *i2c_dev, uint16_t addr,
-		      uint8_t *data, uint32_t num_bytes)
-{
-	uint8_t wr_addr[2];
-	struct i2c_msg msgs[2];
-
-	/* Now try to read back from FRAM */
-
-	/* FRAM address */
-	wr_addr[0] = (addr >> 8) & 0xFF;
-	wr_addr[1] = addr & 0xFF;
-
-	/* Setup I2C messages */
-
-	/* Send the address to read from */
-	msgs[0].buf = wr_addr;
-	msgs[0].len = 2U;
-	msgs[0].flags = I2C_MSG_WRITE;
-
-	/* Read from device. STOP after this. */
-	msgs[1].buf = data;
-	msgs[1].len = num_bytes;
-	msgs[1].flags = I2C_MSG_READ | I2C_MSG_STOP;
-
-	return i2c_transfer(i2c_dev, &msgs[0], 2, FRAM_I2C_ADDR);
-}
-
-
-/*float M2M_LM75A::getTemperature()
-{
-	uint16_t result;
-	if (!read16bitRegister(LM75A_REGISTER_TEMP, result))
-	{
-		return LM75A_INVALID_TEMPERATURE;
-	}
-	return (float)result / 256.0f;
-}*/
-
-/*bool M2M_LM75A::read16bitRegister(const uint8_t reg, uint16_t& response)
-{
-	uint8_t result;
-
-	Wire.beginTransmission(_i2cAddress);
-	Wire.write(reg);
-	result = Wire.endTransmission();
-	// result is 0-4 
-	if (result != 0)
-	{
-		return false;
-	}
-
-	result = Wire.requestFrom(_i2cAddress, (uint8_t)2);
-	if (result != 2)
-	{
-		return false;
-	}
-	uint8_t part1 = Wire.read();
-	uint8_t part2 = Wire.read();
-	
-	//response = (Wire.read() << 8) | Wire.read();
-	uint16_t temp = part1 << 8 | part2;
-	response = part1 << 8 | part2;
-	return true;
-}*/
 
 
 const float LM75A_DEGREES_RESOLUTION = 0.125;
@@ -116,11 +27,10 @@ const int LM75A_REG_ADDR_TEMP = 0;
 
 void main(void)
 {   
-  /*  // Temperature
-  Serial.print(F("Temperature in Celsius: "));
-  Serial.print(lm75a.getTemperature());
-  Serial.println(F(" *C"));*/
+  
 	const struct device *i2c_dev;
+	const struct device *i2c_dev1;
+	
 	uint8_t cmp_data[16];
 	uint8_t data[16];
 	int i, ret;
@@ -128,7 +38,8 @@ void main(void)
     uint8_t pointer = 0x00;
 
 	i2c_dev = device_get_binding(I2C_DEV);
-	if (!i2c_dev) {
+	i2c_dev1 = device_get_binding(I2C_DEV1);
+	if (!i2c_dev1) {
 		printk("I2C: Device driver not found.\n");
 		return;
 	}
@@ -180,6 +91,22 @@ void main(void)
 	pointer = 0x00; // Temp register pointer
     i2c_write(i2c_dev, &pointer, 1, LM75A_DEFAULT_ADDRESS);
     // the pointer doesn't need to be set every i2c read. Once set, pointer is latched and the next readings will be made form the register pointed by pointer
+    ret = 0;
+    
+    printk("----->> ---------------- <<-----------\n");
+    printk("----->>   *** BMP280 *** <<-----------\n\n");
+    
+    
+	pointer = 0xF7; //Tos register pointer - 5000h por defecto
+	i2c_write(i2c_dev1, &pointer, 1, BMP280_DEFAULT_ADDRESS);
+	
+	k_msleep(5);
+	ret = i2c_read(i2c_dev1, &data[0], 4, BMP280_DEFAULT_ADDRESS);
+	k_msleep(5);
+	printk("----->> presion %x temp %x\n\n", data[0], data[3]); // data[0] = 0xF7 reg info -  data[3] = 0xFA red info.
+	
+    
+    
     ret = 0;
     while(1) {
         //int i2c_write(conststructdevice *dev, const uint8_t *buf, uint32_t num_bytes, uint16_t addr)

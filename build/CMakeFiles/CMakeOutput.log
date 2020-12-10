@@ -1,5 +1,5 @@
 The target system is: Generic - 2.4.0 - xtensa
-The host system is: Linux - 5.4.0-53-generic - x86_64
+The host system is: Linux - 5.4.0-56-generic - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: /home/alex/.espressif/tools/xtensa-esp32-elf/esp-2020r3-8.4.0/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc 
 Build flags: 

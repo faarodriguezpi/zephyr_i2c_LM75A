@@ -18,4 +18,4 @@ config:
 # Runner specific arguments
 args:
   esp32:
-    - --esp-idf-path=/home/alex/esp/esp-idf/
+    - --esp-idf-path=/home/alex/esp/esp-idf
