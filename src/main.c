@@ -43,6 +43,8 @@ void main(void)
 		printk("I2C: Device driver not found.\n");
 		return;
 	}
+	printk("----------->> -------------------- <<---------------\n");
+    printk("---------->>   *** I2C LM75A ***   <<--------------\n\n");
 	printk("I2C LM75A - Pruebas.\n");
 	/* ----- */
 	
@@ -93,8 +95,8 @@ void main(void)
     // the pointer doesn't need to be set every i2c read. Once set, pointer is latched and the next readings will be made form the register pointed by pointer
     ret = 0;
     
-    printk("----->> ---------------- <<-----------\n");
-    printk("----->>   *** BMP280 *** <<-----------\n\n");
+    printk("----------->> -------------------- <<---------------\n");
+    printk("---------->>   *** I2C BMP280 ***   <<--------------\n\n");
     
     
 	pointer = 0xF7; //Tos register pointer - 5000h por defecto
@@ -105,6 +107,7 @@ void main(void)
 	k_msleep(5);
 	printk("----->> presion %x temp %x\n\n", data[0], data[3]); // data[0] = 0xF7 reg info -  data[3] = 0xFA red info.
 	
+    
     
     
     ret = 0;
